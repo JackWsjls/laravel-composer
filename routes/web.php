@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::any('/upload', [StudentController::class, 'upload']);
+Route::get('/mail', [StudentController::class, 'mail']);
 
 Route::middleware([
     'auth:sanctum',
