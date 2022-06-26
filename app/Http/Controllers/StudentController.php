@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
@@ -66,4 +69,65 @@ class StudentController extends Controller
         echo '发送失败';
       }
     }
+
+  public function cache1()
+  {
+    // // put 
+    // Cache::put('key1', 'val1', 10);
+
+    // // add
+    // $bool = Cache::add('key1', 'val1', 10);
+    // var_dump($bool);
+
+    // forever
+    Cache::forever('key1', 'val1');
+
+    // has
+    if (Cache::has('key1')) {
+      $val = Cache::get('key1');
+      var_dump($val);
+    } else {
+      echo 'No';
+    }
+  }
+
+  public function cache2()
+  {
+    // // get
+    // $val = Cache::get('key1');
+    // var_dump($val);
+
+    // // pull 取一次后删除
+    // $val = Cache::pull('key1');
+    // var_dump($val);
+
+    // forget
+    $bool = Cache::forget('key1');
+    var_dump($bool);
+  }
+
+  public function error() {
+    // $name = 'error';
+    // var_dump($name);
+
+    // return view('student.error');
+
+    // // HTTP异常
+    // $student = null;
+    // if ($student == null) {
+    //   abort('503');
+    // }
+
+    // Log::info('这是一个info级别的日志');
+    // Log::warning('这是一个warning级别的日志');
+
+    Log::error('这是一个数组', ['name'=>'wsjls','age'=>18]);
+
+  }
+
+  public function queue() {
+    dispatch(new SendEmail('418383219@qq.com'));
+    
+  }
+
 }

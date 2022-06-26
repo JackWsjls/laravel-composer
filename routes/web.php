@@ -20,6 +20,10 @@ Route::get('/', function () {
 
 Route::any('/upload', [StudentController::class, 'upload']);
 Route::get('/mail', [StudentController::class, 'mail']);
+Route::get('/cache1', [StudentController::class, 'cache1']);
+Route::get('/cache2', [StudentController::class, 'cache2']);
+Route::get('/error', [StudentController::class, 'error']);
+Route::get('/queue', [StudentController::class, 'queue']);
 
 Route::middleware([
     'auth:sanctum',
